@@ -1,0 +1,29 @@
+{
+  "name": "is-valid-var-name",
+  "version": "1.0.0",
+  "description": "Contains a single function that determines whether a string is a valid javascript variable name.  Contains optional settings for ES5 compatibility and strict mode evaluation.",
+  "main": "index.js",
+  "dependencies": {
+    "unicode-categories": "^0.9.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "plato": "^1.7.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "var",
+    "name",
+    "identifier",
+    "variable",
+    "check",
+    "valid",
+    "validation",
+    "string",
+    "unicode"
+  ],
+  "author": "Steven Westbrook <StevenAWestbrook@gmail.com>",
+  "license": "MIT"
+}
