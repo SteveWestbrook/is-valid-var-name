@@ -1,7 +1,7 @@
 {
   "name": "is-valid-var-name",
-  "version": "1.0.1",
-  "description": "Determines whether a string is a valid javascript variable name.  ES2015 and ES5 compatibility and optional strict mode evaluation.",
+  "version": "1.0.2",
+  "description": "Determines whether a string is a valid javascript variable name.  ES2015 and ES5 compatibility.  Strict mode evaluation by default.",
   "main": "index.js",
   "dependencies": {
     "unicode-categories": "^0.9.1"

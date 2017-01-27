@@ -47,6 +47,7 @@ describe('isValidVar', function() {
       `${name} should reject invalid characters in non-first positions`, 
       () => {
         assert.ok(!validator('a b'));
+        assert.ok(!validator('ab]['));
       });
 
     it(`${name} should allow capitals`, () => {
@@ -212,14 +213,15 @@ describe('isValidVar', function() {
     }
   });
 
-  content = '$';
+  var shortContent = '$';
   for (var i=0; i<4; i++) {
-    content += Math.floor(Math.random() * 9).toString();
+    shortContent += String.fromCharCode(
+      0x41 + Math.floor(Math.random() * 9).toString());
   }
 
   it('should perform ok with short variables', () => {
     for (var i=0; i<1000000; i++) {
-      assert.ok(isVarValid(content));
+      assert.ok(isVarValid(shortContent));
     }
   });
 
