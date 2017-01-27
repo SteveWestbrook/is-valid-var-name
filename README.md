@@ -40,8 +40,11 @@ isValid = isVarName('await');
 
 To turn off strict mode evaluation:
 ```
+// Turn off strict mode evaluation
+isVarName.strict = false;
+
 // valid when strict mode is off
-isValid = isVarName('arguments', true);
+isValid = isVarName('arguments');
 ```
 
 ## Special Thanks/Acknowledgements
