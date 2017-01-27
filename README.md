@@ -47,11 +47,6 @@ isValid = isVarName('arguments', true);
 ## Special Thanks/Acknowledgements
 This implementation draws heavily on the excellent research of Matthias Bynens, who did the legwork in explaining valid variable names for [ES5](https://mathiasbynens.be/notes/javascript-identifiers) and [ES6](https://mathiasbynens.be/notes/javascript-identifiers-es6).
 
-## Links
-[Github](https://www.github.com/stevewestbrook/is-valid-var-name)
-
-[npm](https://www.npmjs.com/package/is-valid-var-name)
-
 ## License
 Copyright (c) 2017 Steve Westbrook
 

@@ -9,6 +9,10 @@
 var exports = module.exports = isValidES2015VarName;
 exports.es5 = isValidES5VarName;
 
+// Default to strict.
+exports.strict = true;
+exports.es5.strict = true;
+
 /**
  * Allowed first and subsequent characters in a variable name.
  */
@@ -24,17 +28,15 @@ const allowedCharactersES5 = new RegExp('^[$A-Z\\_a-z\\xaa\\xb5\\xba\\xc0-\\xd6\
  * will not necessarily be accepted as valid by this function.
  * 
  * @param name The variable name to check.
- * @param [strictOff] Default is to assume strict mode is on.  If this is 
- *        true, strict mode checking is off.
  * @return true if the name is valid, or false if it is not.
  * @public
  */
-function isValidES2015VarName(name, strictOff) {
-  // In ES5-compatible code, these are not reserved words.
+function isValidES2015VarName(name) {
+  // In ES2015-compatible code, these are reserved words.
   if (name === 'await') { return false; }
   if (name === 'enum') { return false; }
 
-  return validateVarName(allowedCharactersES2015, name, strictOff);
+  return validateVarName(allowedCharactersES2015, name, exports.strict);
 }
 
 /**
@@ -44,13 +46,11 @@ function isValidES2015VarName(name, strictOff) {
  * will not necessarily be accepted as valid by this function.
  * 
  * @param name The variable name to check.
- * @param [strictOff] Default is to assume strict mode is on.  If this is 
- *        true, strict mode checking is off.
  * @return true if the name is valid, or false if it is not.
  * @public
  */
-function isValidES5VarName(name, strictOff) {
-  return validateVarName(allowedCharactersES5, name, strictOff);
+function isValidES5VarName(name) {
+  return validateVarName(allowedCharactersES5, name, exports.es5.strict);
 }
 
 /**
@@ -59,14 +59,13 @@ function isValidES5VarName(name, strictOff) {
  * 
  * @param regex {RegExp} A regular expression used to validate name.
  * @param name {String} The variable name to check.
- * @param [strictOff] Default is to assume strict mode is on.  If this is 
- *        true, strict mode checking is off.
+ * @param [strict] If this is true, strict mode checking is on.
  * @return true if the name is valid, or false if it is not.
  * @private
  */
-function validateVarName(regex, name, strictOff) {
+function validateVarName(regex, name, strict) {
 
-  if (!strictOff) {
+  if (strict) {
     // These are only an issue in strict mode.
     if (name === 'eval') { return false; }
     if (name === 'arguments') { return false; }
