@@ -1,10 +1,13 @@
 {
   "name": "is-valid-var-name",
-  "version": "1.0.0",
-  "description": "Contains a single function that determines whether a string is a valid javascript variable name.  Contains optional settings for ES5 compatibility and strict mode evaluation.",
+  "version": "1.0.1",
+  "description": "Determines whether a string is a valid javascript variable name.  ES2015 and ES5 compatibility and optional strict mode evaluation.",
   "main": "index.js",
   "dependencies": {
     "unicode-categories": "^0.9.1"
+  },
+  "bugs": {
+  	"url": "https://github.com/SteveWestbrook/is-valid-var-name/issues"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
