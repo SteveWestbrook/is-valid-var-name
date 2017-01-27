@@ -1,20 +1,22 @@
 # is-valid-var-name
 
-Single-function [node](https://nodejs.org) module that determines whether a string is a valid javascript variable.
+Single-purpose [node](https://nodejs.org) module that determines whether a string is a valid javascript variable.
 
 This implementation has been optimized for performance.
 
+The primary function is ES6 compatible; ES5 variable names can also be validated.
+
 ```
-const isVar = require('is-valid-var-name');
+const isVarName = require('is-valid-var-name');
 
 // true
-var isValid = isVar('x');
-
-// not just true, but a great idea
-isValid = isVar('ᚢᚫᚱ');
+var isValid = isVarName('x');
 
 // false
-isValid = isVar(' not a var ');
+isValid = isVarName(' not a var ');
+
+// win the respect of your colleagues with this highly maintainable code
+isValid = isVarName('ᚢᚫᚱ');
 ```
 
 **Installation**
@@ -30,14 +32,16 @@ By default, the validation function assumes ES2015 strict mode.  These values ca
 To provide ES5 evaluation:
 
 ```
+const isVarName = require('is-valid-var-name').es5;
+
 // valid under ES5
-isValid = isVar('await', false, true);
+isValid = isVarName('await');
 ```
 
 To turn off strict mode evaluation:
 ```
 // valid when strict mode is off
-isValid = isVar('arguments', true);
+isValid = isVarName('arguments', true);
 ```
 
 ## Special Thanks/Acknowledgements
