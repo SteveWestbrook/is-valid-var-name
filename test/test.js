@@ -8,13 +8,14 @@
 
 var assert = require('assert');
 var isVarValid = require('../index.js');
+var es5Validator = isVarValid.es5;
 
 describe('isValidVar', function() {
 
-  var testGroup = (name, strictOff, es5) => {
+  var testGroup = (validator, name, strictOff) => {
     
     let isVar = (data) => {
-      return isVarValid(data, strictOff, es5)
+      return validator(data, strictOff)
     };
 
     it(`${name} should recognize a basic variable`, () => {
@@ -63,15 +64,19 @@ describe('isValidVar', function() {
 
     it(`${name} should not allow numbers in the first position`, () => {
       assert.ok(!isVar('1abc'));
-    })
+    });
+
+    it(`${name} should allow for obscure valid symbols`, () => {
+      assert.ok(isVar('ᚢᚫᚱ'));
+    });
 
     it(`${name} should allow for weird symbols`, () => {
       assert.ok(isVar('$'));
       assert.ok(isVar('_'));
       assert.ok(isVar('a$'));
       assert.ok(isVar('a_'));
-      assert.ok(isVar('a\u200C'));
-      assert.ok(isVar('a_\u200D'));
+      // assert.ok(isVar('a\u200C'));
+      // assert.ok(isVar('a_\u200D'));
     });
 
     it(`${name} should fail with reserved words`, () => {
@@ -133,10 +138,10 @@ describe('isValidVar', function() {
      
   };
 
-  testGroup('es2016 strict');
-  testGroup('es2016 non-strict', true);
-  testGroup('es5 strict', false, true);
-  testGroup('es5 non-strict', true, true);
+  testGroup(isVarValid, 'es2015 strict');
+  testGroup(isVarValid, 'es2015 non-strict', true);
+  testGroup(es5Validator, 'es5 strict');
+  testGroup(es5Validator, 'es5 non-strict', true);
 
   it('should fail using es2015 reserved words', () => {
     assert.ok(!isVarValid('enum'));
@@ -149,8 +154,8 @@ describe('isValidVar', function() {
   });
 
   it('should succeed with under es5 with es2015 reserved words', () => {
-    assert.ok(isVarValid('enum', false, true));
-    assert.ok(isVarValid('await', false, true));
+    assert.ok(es5Validator('enum'));
+    assert.ok(es5Validator('await'));
   });
 
   it('should fail using strict-mode reserved words', () => {
@@ -170,14 +175,40 @@ describe('isValidVar', function() {
     }
   });
 
+  it(
+    'ES5 should reject top-range unicode in the first position',
+    () => {
+      assert.ok(!es5Validator('\u{10001}', false));
+    });
+
+  it(
+    'ES5 should reject top-range unicode in following positions',
+    () => {
+      assert.ok(!es5Validator('a\u{10001}', false));
+    });
+
+  it('should not support some characters in ES6', () => {
+    assert.ok(!isVarValid('\u2E2F'));
+  });
+
+  var content = '$';
+  for (var i=0; i<10; i++) {
+    content += Math.floor(Math.random() * 9).toString();
+  }
+
   it('should perform ok', () => {
-    var content = '$';
-
-    for (var i=0; i<10000; i++) {
-      content += Math.floor(Math.random() * 9).toString();
+    for (var i=0; i<1000000; i++) {
+      assert.ok(isVarValid(content));
     }
+  });
 
-    for (var i=0; i<10000; i++) {
+  content = '$';
+  for (var i=0; i<4; i++) {
+    content += Math.floor(Math.random() * 9).toString();
+  }
+
+  it('should perform ok with short variables', () => {
+    for (var i=0; i<1000000; i++) {
       assert.ok(isVarValid(content));
     }
   });

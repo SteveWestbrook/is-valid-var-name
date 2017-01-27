@@ -2,7 +2,7 @@
 
 Single-function [node](https://nodejs.org) module that determines whether a string is a valid javascript variable.
 
-This implementation provides a performance improvement over the existing [is-valid-identifier](https://www.npmjs.com/package/is-valid-identifier) npm module.
+This implementation has been optimized for performance.
 
 ```
 const isVar = require('is-valid-var-name');
@@ -10,8 +10,8 @@ const isVar = require('is-valid-var-name');
 // true
 var isValid = isVar('x');
 
-// this is a great idea
-isVar('π');
+// not just true, but a great idea
+isValid = isVar('ᚢᚫᚱ');
 
 // false
 isValid = isVar(' not a var ');
@@ -40,8 +40,8 @@ To turn off strict mode evaluation:
 isValid = isVar('arguments', true);
 ```
 
-## Special Thanks
-This implementation draws heavily on the excellent blogs of Matthias Bynens, who did the legwork in explaining valid variable names for [ES5](https://mathiasbynens.be/notes/javascript-identifiers) and [ES6](https://mathiasbynens.be/notes/javascript-identifiers-es6).
+## Special Thanks/Acknowledgements
+This implementation draws heavily on the excellent research of Matthias Bynens, who did the legwork in explaining valid variable names for [ES5](https://mathiasbynens.be/notes/javascript-identifiers) and [ES6](https://mathiasbynens.be/notes/javascript-identifiers-es6).
 
 ## Links
 [Github](https://www.github.com/stevewestbrook/is-valid-var-name)
