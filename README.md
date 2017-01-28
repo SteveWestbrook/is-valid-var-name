@@ -47,6 +47,10 @@ isVarName.strict = false;
 isValid = isVarName('arguments');
 ```
 
+**What about other identifiers?**
+
+This module validates variable names, but is not intended to validate more complex identifiers such as multi-part values (a.b.c) or string-accessible properties (a["null"]).
+
 ## Special Thanks/Acknowledgements
 This implementation draws heavily on the excellent research of Matthias Bynens, who did the legwork in explaining valid variable names for [ES5](https://mathiasbynens.be/notes/javascript-identifiers) and [ES6](https://mathiasbynens.be/notes/javascript-identifiers-es6).
 
